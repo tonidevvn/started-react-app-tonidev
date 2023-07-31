@@ -1,10 +1,10 @@
 import { Component } from "react";
+import Accordion from "react-bootstrap/Accordion";
 
 export class ChildComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showJobs: true,
       date: new Date(),
     };
   }
@@ -12,13 +12,6 @@ export class ChildComponent extends Component {
   componentDidMount() {
     console.log(">>> Component did mount");
     this.timerID = setInterval(() => this.tick(), 1000);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log(
-      "🚀 ~ file: ChildComponent.js:18 ~ ChildComponent ~ componentDidUpdate ~ prevState:",
-      prevState
-    );
   }
 
   componentWillUnmount() {
@@ -32,33 +25,36 @@ export class ChildComponent extends Component {
     });
   }
 
-  handleShowHide = () => {
-    this.setState({ showJobs: !this.state.showJobs });
-  };
-
   render() {
     let { name, arrJobs, onRemove } = this.props;
-    let { showJobs } = this.state;
 
     return (
       <>
-        <h3>It is {this.state.date.toLocaleTimeString()}.</h3>
-        <button onClick={this.handleShowHide}>Toogle Show/Hide</button>
-        {showJobs && (
-          <>
-            <div>Sub records {name}</div>
-            <ul>
-              {arrJobs.map((job, index) => {
-                return (
-                  <li key={index}>
-                    {job.jobTitle} - ${job.jobSalary} {" --- "}
-                    <button onClick={() => onRemove(index)}>❌</button>
-                  </li>
-                );
-              })}
-            </ul>
-          </>
-        )}
+        <Accordion defaultActiveKey="0">
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>{name}</Accordion.Header>
+            <Accordion.Body>
+              <div className="list-group">
+                {arrJobs.map((job, index) => {
+                  return (
+                    <a
+                      className="list-group-item list-group-item-action"
+                      key={index}
+                    >
+                      {job.jobTitle} - ${job.jobSalary} {"   "}
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() => onRemove(index)}
+                      >
+                        ❌
+                      </span>
+                    </a>
+                  );
+                })}
+              </div>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
       </>
     );
   }

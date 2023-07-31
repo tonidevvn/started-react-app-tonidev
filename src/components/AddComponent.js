@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from "react-bootstrap";
 
 export default class AddComponent extends Component {
   state = {
@@ -31,11 +32,9 @@ export default class AddComponent extends Component {
   };
 
   render() {
-    console.log("Re-render component!!!");
-
     return (
-      <>
-        <form>
+      <div className="container">
+        <form className="p-3">
           <label htmlFor="jobTitle">Job title:</label>
           <br />
           <input
@@ -55,9 +54,11 @@ export default class AddComponent extends Component {
           />
           <br />
           <br />
-          <input type="button" value="Add" onClick={this.handleClickEvent} />
+          <Button variant="primary" onClick={this.handleClickEvent}>
+            Add
+          </Button>
         </form>
-      </>
+      </div>
     );
   }
 }
