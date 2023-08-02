@@ -14,11 +14,19 @@ export class TodoList extends Component {
         { id: 31231231111, desc: "Practice English", status: false },
       ],
     };
+
+    console.log("Under constructor!!!");
+    console.log(this.state.todolist);
   }
 
   componentDidMount() {
     console.log("Did mount component!!!");
     console.log(this);
+  }
+
+  componentDidUpdate() {
+    console.log("Did update component!!!");
+    console.log(this.state.todolist);
   }
 
   handleAddEvent = (newItem) => {
@@ -36,6 +44,7 @@ export class TodoList extends Component {
   };
 
   handleRemoveEvent = (id) => {
+    console.log(`handleRemoveEvent is called with id ${id}`);
     this.setState({
       todolist: this.state.todolist.filter((item) => item.id !== id),
     });
@@ -53,6 +62,8 @@ export class TodoList extends Component {
   };
 
   handleUpdateEvent = (updatedItem) => {
+    console.log(`handleUpdateEvent is called with id ${updatedItem.id}`);
+
     let updatedId = updatedItem.id;
     let elementsIndex = this.state.todolist.findIndex(
       (element) => [element.id] == updatedId

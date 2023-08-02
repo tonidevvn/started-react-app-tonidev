@@ -3,16 +3,8 @@ import React, { Component } from "react";
 export class TodoItem extends Component {
   constructor(props) {
     super(props);
-    let { todo } = this.props;
-    console.log(
-      "🚀 ~ file: TodoItem.js:7 ~ TodoItem ~ constructor ~ todo:",
-      todo
-    );
 
     this.state = {
-      id: todo.id,
-      desc: todo.desc,
-      status: todo.status,
       editMode: false,
     };
   }
@@ -25,14 +17,18 @@ export class TodoItem extends Component {
     return (
       <li className="list-group-item d-flex justify-content-center">
         {!this.state.editMode ? (
-          <span className="d-inline-block me-2">{this.state.desc}</span>
+          <span className="d-inline-block me-2">{todo.desc}</span>
         ) : (
           <input
             type="text"
             className="d-inline-block me-2"
-            value={this.state.desc}
+            value={todo.desc}
             onChange={(event) => {
-              this.setState({ desc: event.target.value });
+              onUpdate({
+                id: todo.id,
+                desc: event.target.value,
+                status: todo.status,
+              });
             }}
           ></input>
         )}
@@ -42,7 +38,7 @@ export class TodoItem extends Component {
             type="checkbox"
             id="flexSwitchCheckDefault"
             onChange={() => {
-              let newStatus = !this.state.status;
+              let newStatus = !todo.status;
               this.setState({ status: newStatus });
               onUpdate({
                 id: todo.id,
@@ -50,7 +46,7 @@ export class TodoItem extends Component {
                 status: newStatus,
               });
             }}
-            checked={!!this.state.status}
+            checked={!!todo.status}
           />
         </div>
         {!this.state.editMode ? (
@@ -72,7 +68,7 @@ export class TodoItem extends Component {
 
               onUpdate({
                 id: todo.id,
-                desc: this.state.desc,
+                desc: todo.desc,
                 status: todo.status,
               });
             }}
