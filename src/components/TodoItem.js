@@ -25,19 +25,14 @@ export class TodoItem extends Component {
     return (
       <li className="list-group-item d-flex justify-content-center">
         {!this.state.editMode ? (
-          <span className="d-inline-block pe-2">{todo.desc}</span>
+          <span className="d-inline-block me-2">{this.state.desc}</span>
         ) : (
           <input
             type="text"
-            className="d-inline-block pe-2"
-            value={todo.desc}
+            className="d-inline-block me-2"
+            value={this.state.desc}
             onChange={(event) => {
               this.setState({ desc: event.target.value });
-              onUpdate({
-                id: todo.id,
-                desc: event.target.value,
-                status: todo.status,
-              });
             }}
           ></input>
         )}
@@ -60,7 +55,7 @@ export class TodoItem extends Component {
         </div>
         {!this.state.editMode ? (
           <span
-            className="d-inline-block px-1"
+            className="d-inline-block mx-1"
             style={{ cursor: "pointer" }}
             title="Edit"
             onClick={() => this.setState({ editMode: !this.state.editMode })}
@@ -69,16 +64,24 @@ export class TodoItem extends Component {
           </span>
         ) : (
           <span
-            className="d-inline-block px-1"
+            className="d-inline-block mx-1"
             style={{ cursor: "pointer" }}
             title="Save"
-            onClick={() => this.setState({ editMode: !this.state.editMode })}
+            onClick={() => {
+              this.setState({ editMode: !this.state.editMode });
+
+              onUpdate({
+                id: todo.id,
+                desc: this.state.desc,
+                status: todo.status,
+              });
+            }}
           >
             📋
           </span>
         )}
         <span
-          className="d-inline-block px-1"
+          className="d-inline-block mx-1"
           style={{ cursor: "pointer" }}
           onClick={() => onRemove(todo.id)}
           title="Delete"

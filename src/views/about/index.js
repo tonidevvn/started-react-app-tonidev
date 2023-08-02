@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import withLoader from "../../components/LoadIndicator";
 
 export class About extends Component {
   render() {
@@ -19,4 +20,4 @@ export class About extends Component {
   }
 }
 
-export default About;
+export default withLoader(About);

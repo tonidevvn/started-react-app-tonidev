@@ -1,35 +1,47 @@
 import "./App.scss";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import MyComponent from "../components/MyComponent";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import NavBarComponent from "../components/NavBarComponent";
-import { TodoList } from "../components/TodoList";
 import Logo from "../components/Logo";
-import About from "./About";
+import { routes } from "../routes/MainRoutes";
+import Page404 from "./404";
+import ListUser from "./users";
+import UserDetails from "./user-details";
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <header className="App-header">
-          <NavBarComponent />
-        </header>
-        <div className="container">
-          <Switch>
-            <Route exact path="/">
-              <h1>Hello Toni</h1>
-              <MyComponent name="Toni" age="18" />
-            </Route>
-            <Route path="/todo-app">
-              <TodoList />
-            </Route>
-            <Route path="/about">
-              <About />
-            </Route>
-          </Switch>
-          <Logo />
+    <>
+      <BrowserRouter>
+        <div className="App">
+          <header className="App-header">
+            <NavBarComponent />
+          </header>
+          <div className="container">
+            <Switch>
+              {routes.map((route, index) => {
+                return (
+                  <Route key={index} exact path={route.path}>
+                    {route.view}
+                  </Route>
+                );
+              })}
+              <Route path="/user/:id">
+                <UserDetails />
+              </Route>
+              <Route path="/users?page=:page">
+                <ListUser />
+              </Route>
+              <Route path="*">
+                <Page404 />
+              </Route>
+            </Switch>
+            <Logo />
+          </div>
         </div>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+      <ToastContainer />
+    </>
   );
 }
 

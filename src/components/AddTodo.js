@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 
+import { toast } from "react-toastify";
+
 export class AddTodo extends Component {
   state = {
     todoDesc: "",
@@ -24,7 +26,16 @@ export class AddTodo extends Component {
 
       this.setState({ todoDesc: "" });
     } else {
-      alert("Input todo description");
+      toast.error("Missing todo description", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 

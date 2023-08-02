@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { routes } from "../routes/MainRoutes";
 
 class NavBarComponent extends React.Component {
   constructor(props) {
@@ -32,34 +33,20 @@ class NavBarComponent extends React.Component {
           <div className="col-md-12">
             <nav className="navbar navbar-expand-sm">
               <ul className="nav nav-pills">
-                <li className="nav-item ">
-                  <NavLink
-                    to="/"
-                    exact={true}
-                    className="nav-link"
-                    activeClassName="active"
-                  >
-                    Home
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink
-                    to="/todo-app"
-                    className="nav-link"
-                    activeClassName="active"
-                  >
-                    Todo App
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink
-                    to="/about"
-                    className="nav-link"
-                    activeClassName="active"
-                  >
-                    About
-                  </NavLink>
-                </li>
+                {routes.map((route, index) => {
+                  return (
+                    <li key={index} className="nav-item ">
+                      <NavLink
+                        to={route.path}
+                        exact={true}
+                        className="nav-link"
+                        activeClassName="active"
+                      >
+                        {route.title}
+                      </NavLink>
+                    </li>
+                  );
+                })}
                 <li className="nav-item">
                   <a className="nav-link disabled" aria-disabled="true">
                     {this.state.date.toLocaleTimeString()}
