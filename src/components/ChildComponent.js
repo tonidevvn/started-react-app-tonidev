@@ -44,7 +44,7 @@ export class ChildComponent extends Component {
                       {job.jobTitle} - ${job.jobSalary} {"   "}
                       <span
                         style={{ cursor: "pointer" }}
-                        onClick={() => onRemove(index)}
+                        onClick={() => onRemove(job.id)}
                       >
                         ❌
                       </span>

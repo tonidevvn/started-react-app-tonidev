@@ -14,7 +14,7 @@ function App() {
     <>
       <BrowserRouter>
         <div className="App">
-          <header className="App-header">
+          <header>
             <NavBarComponent />
           </header>
           <div className="container">

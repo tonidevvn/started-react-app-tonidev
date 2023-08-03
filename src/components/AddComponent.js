@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 
 export default class AddComponent extends Component {
   state = {
+    id: new Date().getTime(),
     jobTitle: "",
     jobSalary: "",
   };
@@ -20,9 +21,9 @@ export default class AddComponent extends Component {
 
     if (!!this.state.jobTitle && !!this.state.jobSalary) {
       let { onSubmit } = this.props;
-      let { jobTitle, jobSalary } = this.state;
+      let { id, jobTitle, jobSalary } = this.state;
 
-      let newJob = { jobTitle: jobTitle, jobSalary: jobSalary };
+      let newJob = { id, jobTitle, jobSalary };
       onSubmit(newJob);
       console.log(newJob);
       // alert(`hello ${this.state.jobTitle} ${this.state.jobSalary}`);

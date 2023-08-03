@@ -1,50 +1,38 @@
-import { Component } from "react";
 import ChildComponent from "./ChildComponent";
 import AddComponent from "./AddComponent";
+import { selectJobs, add, remove } from "../utils/jobsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-class MyComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      jobs: [
-        { jobTitle: "SW", jobSalary: 400 },
-        { jobTitle: "IT", jobSalary: 500 },
-        { jobTitle: "Manager", jobSalary: 1000 },
-      ],
-    };
-  }
+function MyComponent(props) {
+  const jobs = useSelector(selectJobs);
+  const dispatch = useDispatch();
 
-  handleAddComponent = (newJob) => {
-    this.setState({ jobs: [...this.state.jobs, newJob] });
+  const handleAddComponent = (newJob) => {
+    //this.setState({ jobs: [...this.state.jobs, newJob] });
+    dispatch(add(newJob));
   };
 
-  handleRemoveComponent = (jobIndex) => {
-    let subJobs = this.state.jobs;
-    this.setState({
-      jobs: [...subJobs.slice(0, jobIndex), ...subJobs.slice(++jobIndex)],
-    });
+  const handleRemoveComponent = (jobId) => {
+    // let subJobs = this.state.jobs;
+    // this.setState({
+    //   jobs: [...subJobs.slice(0, jobIndex), ...subJobs.slice(++jobIndex)],
+    // });
+    dispatch(remove(jobId));
   };
 
-  render() {
-    console.log("Re-render component!!!");
-
-    let { name, age } = this.props;
-    let { jobs } = this.state;
-
-    return (
-      <>
-        <h2>
-          Name: {name} - Age: {age}
-        </h2>
-        <AddComponent arrJobs={jobs} onSubmit={this.handleAddComponent} />
-        <ChildComponent
-          name="Career history"
-          arrJobs={jobs}
-          onRemove={this.handleRemoveComponent}
-        />
-      </>
-    );
-  }
+  return (
+    <>
+      <h2>
+        Name: {props.name} - Age: {props.age}
+      </h2>
+      <AddComponent onSubmit={handleAddComponent} />
+      <ChildComponent
+        name="Career history"
+        arrJobs={jobs}
+        onRemove={handleRemoveComponent}
+      />
+    </>
+  );
 }
 
 export default MyComponent;
