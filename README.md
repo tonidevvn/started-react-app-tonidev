@@ -29,7 +29,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ## 🪄 Screenshots
 
-![Screenshot-1](/public/app_Screenshot_1?raw=true "Screenshot-1")
+![Screenshot-1](/public/app_Screenshot_1.jpg?raw=true "Screenshot-1")
 
 ## 🚀 Styling
 
